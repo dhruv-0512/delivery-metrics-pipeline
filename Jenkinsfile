@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Source Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'python3 --version'
+                sh 'pip3 install -r requirements.txt'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'python3 -m unittest test_app.py'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'mkdir -p deployment'
+                sh 'cp app.py requirements.txt deployment/'
+                sh 'cp test_app.py deployment/'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Metrics exporter pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check stage logs.'
+        }
+    }
+}
