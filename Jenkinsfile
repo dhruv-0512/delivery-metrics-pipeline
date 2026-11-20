@@ -19,8 +19,9 @@ git push
 
         stage('Test') {
     steps {
-        sh 'python3 -m unittest test_app.py'
+        sh 'venv/bin/python -m unittest test_app.py'
     }
+}
 }
 
         stage('Deploy') {
