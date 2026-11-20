@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,26 +10,22 @@ pipeline {
         }
 
         stage('Build') {
-    steps {
-        sh 'python3 -m venv venv'
-        sh 'venv/bin/pip install -r requirements.txt'
-    }
-}git add Jenkinsfile
-git commit -m "Use Python virtual environment in Jenkins"
-git push
+            steps {
+                sh 'python3 -m venv venv'
+                sh 'venv/bin/pip install -r requirements.txt'
+            }
+        }
 
         stage('Test') {
-    steps {
-        sh 'venv/bin/python -m unittest test_app.py'
-    }
-}
-}
+            steps {
+                sh 'venv/bin/python -m unittest test_app.py'
+            }
+        }
 
         stage('Deploy') {
             steps {
                 sh 'mkdir -p deployment'
-                sh 'cp app.py requirements.txt deployment/'
-                sh 'cp test_app.py deployment/'
+                sh 'cp app.py requirements.txt test_app.py deployment/'
             }
         }
     }
