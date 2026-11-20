@@ -13,13 +13,15 @@ pipeline {
         sh 'python3 -m venv venv'
         sh 'venv/bin/pip install -r requirements.txt'
     }
-}
+}git add Jenkinsfile
+git commit -m "Use Python virtual environment in Jenkins"
+git push
 
         stage('Test') {
-            steps {
-                sh 'python3 -m unittest test_app.py'
-            }
-        }
+    steps {
+        sh 'python3 -m unittest test_app.py'
+    }
+}
 
         stage('Deploy') {
             steps {
